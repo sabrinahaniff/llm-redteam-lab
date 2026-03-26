@@ -35,7 +35,7 @@ export default function Findings() {
         20 automated red-teaming turns per condition. Two runs: one with Guardrail active, one without.
       </p>
 
-      {/* Metric cards */}
+      {/* metric cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '12px', marginBottom: '2.5rem' }}>
         {metrics.map(m => (
           <div key={m.label} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '6px', padding: '1.2rem' }}>
@@ -46,7 +46,7 @@ export default function Findings() {
         ))}
       </div>
 
-      {/* Finding cards */}
+      {/* finding cards */}
       {findings.map(f => (
         <div key={f.title} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '6px', padding: '1.2rem 1.5rem', marginBottom: '12px', borderLeft: `3px solid ${f.color}` }}>
           <h3 style={{ fontSize: '0.75rem', fontWeight: 700, marginBottom: '0.4rem', fontFamily: 'var(--font-d)' }}>{f.title}</h3>
@@ -54,7 +54,7 @@ export default function Findings() {
         </div>
       ))}
 
-      {/* Charts */}
+      {/* charts */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '2rem' }}>
         <ChartBox title="Attack type distribution" rows={attackDist} suffix="" maxVal={11} />
         <ChartBox title="Success rate by attack type (no guardrail)" rows={successRate} suffix="%" maxVal={100} />
