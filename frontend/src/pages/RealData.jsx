@@ -79,7 +79,7 @@ export default function RealData() {
         jailbreaks: EXPOSED.slice(0,i+1).filter(d=>d.jailbroken).length
       })
     }
-    setProgress(`Complete — Defended: 0 breaches | Exposed: 8 breaches`)
+    setProgress(`Complete - Defended: 0 breaches | Exposed: 8 breaches`)
     setRunning(false)
   }
 

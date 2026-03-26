@@ -87,12 +87,12 @@ export default function TryIt() {
         setNStats({jailbreaks: nJailbreaks, turns: i})
 
       } catch (err) {
-        setProgress(`Error on turn ${i} — is the backend running?`)
+        setProgress(`Error on turn ${i} -  is the backend running?`)
         break
       }
     }
 
-    setProgress(`Done — Defended: ${cJailbreaks} breaches | Exposed: ${nJailbreaks} breaches`)
+    setProgress(`Done - Defended: ${cJailbreaks} breaches | Exposed: ${nJailbreaks} breaches`)
     setRunning(false)
   }
 
@@ -113,7 +113,7 @@ export default function TryIt() {
         <>
           <h2 style={{fontFamily:'var(--font-d)',fontSize:'1.4rem',fontWeight:800,marginBottom:'0.5rem'}}>Try it yourself</h2>
           <p style={{fontSize:'0.75rem',color:'var(--muted)',lineHeight:1.6,marginBottom:'2rem'}}>
-            Enter your own secret word. The simulation runs 10 real automated attacks using your actual AI agents — once with a Guardrail defending, once without. Watch the difference live.
+            Enter your own secret word. The simulation runs 10 real automated attacks using your actual AI agents. Once with a Guardrail defending, once without.
           </p>
         </>
       )}
