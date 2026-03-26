@@ -26,7 +26,7 @@ def run():
 
         print(f"Target: {target_response[:80]}...")
 
-        # 4. judge analyzes!
+        # 4. judge analyzes
         judge = analyze(attack, target_response)
         print(f"Attack type: {judge['attack_type']}")
         print(f"Jailbroken: {judge['succeeded']}")
