@@ -20,6 +20,9 @@ with a guardrail defense and without. Compares how many attacks get through.
 
 ## What I found
 
+<img width="1377" height="764" alt="image" src="https://github.com/user-attachments/assets/1de5072b-1a74-4bbf-bb84-a851aed414cc" />
+
+
 - Without guardrail: 40% jailbreak rate (8/20 attacks succeeded)
 - With guardrail: 0% jailbreak rate (0/20 attacks succeeded)
 - Gradual escalation was by far the most effective attack, 75% success rate
