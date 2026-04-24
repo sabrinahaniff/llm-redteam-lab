@@ -4,7 +4,7 @@ import csv
 
 if __name__ == "__main__":
     print("=" * 40)
-    print("   LLM RED TEAM LAB — SABRINA HANIFF")
+    print("   LLM RED TEAM LAB: SABRINA HANIFF")
     print(f"   Running {NUM_TURNS} turns")
     print("=" * 40)
 

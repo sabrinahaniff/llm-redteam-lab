@@ -1,49 +1,56 @@
 # LLM Red Team Lab
 
-An automated red-teaming research system that tests LLM vulnerabilities using a 4-agent pipeline. Built for self experimentation.
+I built this to see how easily you could break an LLM using automated attacks,
+and whether a guardrail agent could actually stop them. Ended up being way more
+interesting than I expected.
 
 ## What it does
 
-Runs automated jailbreak experiments against a target AI in two conditions: with and without a Guardrail defense agent and compares the results. Produces a structured dataset of attack types, guardrail scores, and jailbreak outcomes.
+Runs automated jailbreak experiments using a 4 agent pipeline. Two conditions:
+with a guardrail defense and without. Compares how many attacks get through.
 
-## Architecture
+## The 4 agents
 
-Four specialized agents work in a loop:
+- **Hacker**: generates adversarial prompts using roleplay, authority 
+  impersonation, social engineering, gradual escalation, and distraction
+- **Guardrail**: scores each prompt 1-10 for manipulation risk and blocks 
+  anything too suspicious before it reaches the target
+- **Target**: the victim AI that's trying to protect a secret
+- **Judge**: classifies the attack type and determines if the jailbreak worked
 
-- **Hacker** — generates adversarial prompts using roleplay, authority impersonation, social engineering, gradual escalation, and distraction strategies
-- **Guardrail** — scores each prompt 1-10 for manipulation risk and blocks high-risk prompts before they reach the target
-- **Target** — the victim AI that must protect a secret
-- **Judge** — classifies each attack type and determines whether the jailbreak succeeded
+## What I found
 
-## Key findings
+- Without guardrail: 40% jailbreak rate (8/20 attacks succeeded)
+- With guardrail: 0% jailbreak rate (0/20 attacks succeeded)
+- Gradual escalation was by far the most effective attack, 75% success rate
+- The guardrail blocked 40% of all prompts which is a high false positive rate worth looking into
 
-- With Guardrail: **0% jailbreak rate** (0/20 attacks succeeded)
-- Without Guardrail: **40% jailbreak rate** (8/20 attacks succeeded)
-- Guardrail blocked 40% of all prompts — false positive rate warrants further study
-- Gradual escalation was the most effective attack type (75% success rate without defense)
+The gradual escalation finding was the most interesting to me. Attacks that 
+slowly built up context over multiple turns worked much better than direct 
+attempts. The guardrail catches obvious attacks but the slow burn ones are harder.
 
 ## Stack
 
-- Python, FastAPI, Groq API (Llama 3)
-- React + Vite (frontend)
-- Multi-agent orchestration with raw API calls
+Python, FastAPI, Groq API (Llama 3), React + Vite
 
 ## Setup
+
 ```bash
-# Backend
+# backend
 python3 -m venv venv
 source venv/bin/activate
 pip install openai python-dotenv fastapi uvicorn
-cp .env.example .env  # add your Groq API key
+cp .env.example .env
 python -m uvicorn server:app --reload
 
-# Frontend
+# frontend
 cd frontend
 npm install
 npm run dev
 ```
 
 ## Project structure
+
 ```
 llm-redteam-lab/
 ├── agents/
@@ -54,19 +61,20 @@ llm-redteam-lab/
 ├── core/
 │   ├── loop.py
 │   └── logger.py
-├── frontend/        # React dashboard
-├── data/            # CSV results
-├── server.py        # FastAPI backend
-├── main.py          # CLI experiment runner
+├── frontend/
+├── data/
+├── server.py
+├── main.py
 └── config.py
 ```
 
 ## Running experiments
+
 ```bash
-# Run 20-turn experiment and save to CSV
+# run 20 turn experiment and save results to CSV
 python main.py
 
-# Start interactive dashboard
+# start the dashboard
 python -m uvicorn server:app --reload
 cd frontend && npm run dev
 ```
